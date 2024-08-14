@@ -76,25 +76,29 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td>Code Group</td>
+                                            <td>
+                                                <a href="#">Code Group</a>
+                                            </td>
                                             <td>14/08/2024</td>
                                             <td>Ewerton Dias</td>
                                             <td>20/08/2024</td>
                                             <td>Iniciado</td>
                                             <td>
-                                                <a href="#">A</a>
+                                                <a href="${pageContext.request.contextPath}/member">ME</a>
                                                 <a href="#">B</a>
                                                 <a href="#">C</a>
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>Code Group</td>
+                                            <td>
+                                                <a href="#">Code Group</a>
+                                            </td>
                                             <td>14/08/2024</td>
                                             <td>Ewerton Dias</td>
                                             <td>20/08/2024</td>
                                             <td>Iniciado</td>
                                             <td>
-                                                <a href="#">A</a>
+                                                <a href="${pageContext.request.contextPath}/member">ME</a>
                                                 <a href="#">B</a>
                                                 <a href="#">C</a>
                                             </td>

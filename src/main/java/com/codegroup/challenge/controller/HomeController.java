@@ -10,12 +10,17 @@ public class HomeController {
 
     @GetMapping
     public String home() {
-        return "home";
+        return "home/home";
     }
 
     @GetMapping("create")
     public String create() {
-        return "create";
+        return "project/create";
+    }
+
+    @GetMapping("member")
+    public String member() {
+        return "project/member";
     }
 
 }
