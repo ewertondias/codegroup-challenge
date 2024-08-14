@@ -41,7 +41,7 @@
                                 <div class="col-6 pe-2">
                                     <div class="d-flex justify-content-end">
                                         <div class="d-flex">
-                                            <a href="${pageContext.request.contextPath}/create" class="btn btn-secondary mx-1">Novo</a>
+                                            <a href="${pageContext.request.contextPath}/projects/create" class="btn btn-secondary mx-1">Novo</a>
                                         </div>
                                         <div class="d-flex">
                                             <select class="form-select mx-1" aria-label="Risco">
@@ -84,7 +84,7 @@
                                             <td>20/08/2024</td>
                                             <td>Iniciado</td>
                                             <td>
-                                                <a href="${pageContext.request.contextPath}/member">ME</a>
+                                                <a href="${pageContext.request.contextPath}/projects/member">ME</a>
                                                 <a href="#">B</a>
                                                 <a href="#">C</a>
                                             </td>
@@ -98,7 +98,7 @@
                                             <td>20/08/2024</td>
                                             <td>Iniciado</td>
                                             <td>
-                                                <a href="${pageContext.request.contextPath}/member">ME</a>
+                                                <a href="${pageContext.request.contextPath}/projects/member">ME</a>
                                                 <a href="#">B</a>
                                                 <a href="#">C</a>
                                             </td>

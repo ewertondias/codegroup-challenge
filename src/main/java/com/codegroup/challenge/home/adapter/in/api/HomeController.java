@@ -1,4 +1,4 @@
-package com.codegroup.challenge.controller;
+package com.codegroup.challenge.home.adapter.in.api;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,16 +11,6 @@ public class HomeController {
     @GetMapping
     public String home() {
         return "home/home";
-    }
-
-    @GetMapping("create")
-    public String create() {
-        return "project/create";
-    }
-
-    @GetMapping("member")
-    public String member() {
-        return "project/member";
     }
 
 }

@@ -51,10 +51,10 @@
                     </div>
                     <div class="card my-2">
                         <div class="card-body">
-                            <form class="row g-3">
+                            <form action="${pageContext.request.contextPath}/projects/create" method="post" class="row g-3">
                                 <div class="col-md-6">
                                     <label for="name" class="form-label">Nome</label>
-                                    <input type="text" class="form-control" id="name">
+                                    <input type="text" class="form-control" id="name" name="name">
                                 </div>
                                 <div class="col-md-6">
                                     <label for="manager" class="form-label">Gerente responsável</label>
