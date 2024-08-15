@@ -3,6 +3,7 @@ package com.codegroup.challenge.project.domain;
 import com.codegroup.challenge.member.domain.Member;
 import com.codegroup.challenge.project.domain.enums.RiskEnum;
 import com.codegroup.challenge.project.domain.enums.StatusEnum;
+import com.codegroup.challenge.project.exception.DeleteNotAllowedException;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -72,6 +73,14 @@ public class Project {
             this.risk = form.risk;
             this.status = form.status;
         });
+    }
+
+    public void verifyStatusForDelete() {
+        if (StatusEnum.INICIADO.equals(this.getStatus())
+            || StatusEnum.EM_ANDAMENTO.equals(this.getStatus())
+            || StatusEnum.ENCERRADO.equals(this.getStatus())) {
+            throw new DeleteNotAllowedException();
+        }
     }
 
     public UUID getId() {

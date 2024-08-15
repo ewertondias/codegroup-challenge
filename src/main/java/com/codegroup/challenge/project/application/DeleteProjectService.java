@@ -21,6 +21,8 @@ public class DeleteProjectService implements DeleteProjectUseCase {
         var project = repository.findById(id)
             .orElseThrow(ProjectNotFoundException::new);
 
+        project.verifyStatusForDelete();
+
         repository.deleteById(project.getId());
     }
 

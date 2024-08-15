@@ -72,9 +72,8 @@
                         url: '/projects/' + id,
                         method: 'put',
                         data: data,
-                        //contentType: 'application/json',
                         success: function() {
-                            location.reload();
+                            window.location = '/';
                         }
                     });
                 });
