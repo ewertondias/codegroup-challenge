@@ -1,5 +1,7 @@
 package com.codegroup.challenge.member.adapter.in.api.dto;
 
+import com.codegroup.challenge.member.domain.enums.MemberPositionEnum;
+
 import java.util.Objects;
 import java.util.UUID;
 
@@ -7,10 +9,12 @@ public class MemberResponse {
 
     private final UUID id;
     private final String name;
+    private final MemberPositionEnum position;
 
     public MemberResponse(MemberResponseBuilder builder) {
         this.id = builder.id;
         this.name = builder.name;
+        this.position = builder.position;
     }
 
     public static MemberResponseBuilder builder() {
@@ -23,6 +27,10 @@ public class MemberResponse {
 
     public String getName() {
         return name;
+    }
+
+    public MemberPositionEnum getPosition() {
+        return position;
     }
 
     @Override

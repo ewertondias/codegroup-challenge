@@ -16,4 +16,8 @@ public interface MemberRepository {
 
     List<Member> findAllByPosition(MemberPositionEnum position);
 
+    // List<Member> saveAll(List<Member> members);
+
+    <S extends Member> List<S> saveAll(Iterable<S> entities);
+
 }

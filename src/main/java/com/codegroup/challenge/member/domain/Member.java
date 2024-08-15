@@ -22,6 +22,18 @@ public class Member {
     @Enumerated(EnumType.ORDINAL)
     private MemberPositionEnum position;
 
+    public Member() {}
+
+    public Member(MemberBuilder builder) {
+        this.id = builder.id;
+        this.name = builder.name;
+        this.position = builder.position;
+    }
+
+    public static MemberBuilder builder() {
+        return new MemberBuilder();
+    }
+
     public UUID getId() {
         return id;
     }
