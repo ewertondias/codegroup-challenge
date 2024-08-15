@@ -15,7 +15,24 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
 
+        <script src="<c:url value="https://code.jquery.com/jquery-3.7.1.min.js" />" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
         <script src="<c:url value="/static/dist/js/bootstrap.bundle.min.js" />" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $('.btn-delete').click(function() {
+                    let id = $(this).attr('id');
+
+                    $.ajax({
+                        url: '/projects/' + id,
+                        method: 'delete',
+                        success: function() {
+                            location.reload();
+                        }
+                    });
+                });
+            });
+        </script>
     </head>
 
     <body>
@@ -91,9 +108,9 @@
                                                 <td>${project.risk}</td>
                                                 <td>${project.status}</td>
                                                 <td>
-                                                    <a href="${pageContext.request.contextPath}/projects/member">ME</a>
-                                                    <a href="#">B</a>
-                                                    <a href="#">C</a>
+                                                    <a href="${pageContext.request.contextPath}/projects/member">Add</a>
+                                                    <a href="${pageContext.request.contextPath}/projects/${project.id}">Alterar</a>
+                                                    <a href="#" id="${project.id}" class="btn-delete">Excluir</a>
                                                 </td>
                                             </tr>
                                         </c:forEach>

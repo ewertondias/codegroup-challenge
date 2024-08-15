@@ -4,7 +4,6 @@ import com.codegroup.challenge.project.domain.enums.RiskEnum;
 import com.codegroup.challenge.project.domain.enums.StatusEnum;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.util.UUID;
 
 public class ProjectResponse {
@@ -12,9 +11,9 @@ public class ProjectResponse {
     private final UUID id;
     private final String name;
     private final String manager;
-    private final LocalDate startDate;
-    private final LocalDate estimatedEndDate;
-    private final LocalDate actualEndDate;
+    private final String startDate;
+    private final String estimatedEndDate;
+    private final String actualEndDate;
     private final BigDecimal budget;
     private final String description;
     private final RiskEnum risk;
@@ -49,15 +48,15 @@ public class ProjectResponse {
         return manager;
     }
 
-    public LocalDate getStartDate() {
+    public String getStartDate() {
         return startDate;
     }
 
-    public LocalDate getEstimatedEndDate() {
+    public String getEstimatedEndDate() {
         return estimatedEndDate;
     }
 
-    public LocalDate getActualEndDate() {
+    public String getActualEndDate() {
         return actualEndDate;
     }
 

@@ -46,6 +46,20 @@ public class Project {
         return new ProjectBuilder();
     }
 
+    public ProjectUpdateForm update() {
+        return new ProjectUpdateForm(form -> {
+            this.name = form.name;
+            this.manager = form.manager;
+            this.startDate = form.startDate;
+            this.estimatedEndDate = form.estimatedEndDate;
+            this.actualEndDate = form.actualEndDate;
+            this.budget = form.budget;
+            this.description = form.description;
+            this.risk = form.risk;
+            this.status = form.status;
+        });
+    }
+
     public UUID getId() {
         return id;
     }

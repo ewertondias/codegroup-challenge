@@ -4,9 +4,11 @@ import com.codegroup.challenge.project.domain.enums.RiskEnum;
 import com.codegroup.challenge.project.domain.enums.StatusEnum;
 
 import java.math.BigDecimal;
+import java.util.UUID;
 
 public class ProjectRequest {
 
+    private UUID id;
     private String name;
     private String manager;
     private String startDate;
@@ -16,6 +18,14 @@ public class ProjectRequest {
     private String description;
     private RiskEnum risk;
     private StatusEnum status;
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;

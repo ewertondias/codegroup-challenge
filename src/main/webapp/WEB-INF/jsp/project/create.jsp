@@ -42,6 +42,42 @@
 
                     $('#budget').val(formattedValue);
                 });
+
+                $('.btn-update').click(function() {
+                    let id = $(this).attr('id');
+
+                    let name = $('#name').val();
+                    let manager = $('#manager').val();
+                    let startDate = $('#start_date').val();
+                    let estimatedEndDate = $('#estimated_end_date').val();
+                    let actualEndDate = $('#actual_end_date').val();
+                    let budget = AutoNumeric.getNumber('#budget');
+                    let risk = $('#risk').val();
+                    let status = $('#status').val();
+                    let description = $('#description').val();
+
+                    let data = {
+                        name: name,
+                        manager: manager,
+                        startDate: startDate,
+                        estimatedEndDate: estimatedEndDate,
+                        actualEndDate: actualEndDate,
+                        budget: budget,
+                        risk: risk,
+                        status: status,
+                        description: description
+                    };
+
+                    $.ajax({
+                        url: '/projects/' + id,
+                        method: 'put',
+                        data: data,
+                        //contentType: 'application/json',
+                        success: function() {
+                            location.reload();
+                        }
+                    });
+                });
             });
         </script>
     </head>
@@ -67,37 +103,37 @@
                     </div>
                     <div class="card my-2">
                         <div class="card-body">
-                            <form id="new-project" action="${pageContext.request.contextPath}/projects/create" method="post" class="row g-3">
+                            <form id="new-project" action="${project.id == null ? '/projects/create' : '/projects/'}<c:out value='${project.id}' />" method="post" class="row g-3">
                                 <div class="col-md-6">
                                     <label for="name" class="form-label">Nome</label>
-                                    <input type="text" id="name" name="name" class="form-control">
+                                    <input type="text" id="name" name="name" class="form-control" value="${project.name}">
                                 </div>
                                 <div class="col-md-6">
                                     <label for="manager" class="form-label">Gerente responsável</label>
-                                    <input type="text" id="manager" name="manager" class="form-control">
+                                    <input type="text" id="manager" name="manager" class="form-control" value="${project.manager}">
                                 </div>
                                 <div class="col-md-4">
                                     <label for="start_date" class="form-label">Data de início</label>
-                                    <input type="text" id="start_date" name="startDate" class="form-control selector">
+                                    <input type="text" id="start_date" name="startDate" class="form-control selector" value="${project.startDate}">
                                 </div>
                                 <div class="col-md-4">
                                     <label for="estimated_end_date" class="form-label">Previsão de término</label>
-                                    <input type="text" id="estimated_end_date" name="estimatedEndDate" class="form-control selector">
+                                    <input type="text" id="estimated_end_date" name="estimatedEndDate" class="form-control selector" value="${project.estimatedEndDate}">
                                 </div>
                                 <div class="col-md-4">
                                     <label for="actual_end_date" class="form-label">Data real de término</label>
-                                    <input type="text" id="actual_end_date" name="actualEndDate" class="form-control selector">
+                                    <input type="text" id="actual_end_date" name="actualEndDate" class="form-control selector" value="${project.actualEndDate}">
                                 </div>
                                 <div class="col-md-4">
                                     <label for="budget" class="form-label">Orçamento total</label>
-                                    <input type="text" id="budget" name="budget" class="form-control">
+                                    <input type="text" id="budget" name="budget" class="form-control" value="${project.budget}">
                                 </div>
                                 <div class="col-md-4">
                                     <label for="risk" class="form-label">Risco</label>
                                     <select id="risk" name="risk" class="form-control">
                                         <option selected>Selecione o risco</option>
                                         <c:forEach var="risk" items="${risks}">
-                                            <option value="${risk}">${risk}</option>
+                                            <option value="${risk}" ${risk == project.risk ? 'selected' : ''}>${risk}</option>
                                         </c:forEach>
                                     </select>
                                 </div>
@@ -106,16 +142,22 @@
                                     <select id="status" name="status" class="form-control">
                                         <option selected>Selecione o status</option>
                                         <c:forEach var="s" items="${status}">
-                                            <option value="${s}">${s}</option>
+                                            <option value="${s}" ${s == project.status ? 'selected' : ''}>${s}</option>
                                         </c:forEach>
                                     </select>
                                 </div>
                                 <div class="col-md-12">
                                     <label for="description" class="form-label">Descrição</label>
-                                    <textarea type="text" id="description" name="description" class="form-control"></textarea>
+                                    <textarea type="text" id="description" name="description" class="form-control">${project.description}</textarea>
                                 </div>
                                 <div class="col-md-12 d-flex justify-content-end">
-                                    <button type="submit" class="btn btn-primary">Cadastrar</button>
+                                    <c:if test="${project.id == null}">
+                                        <button type="submit" class="btn btn-primary">Cadastrar</button>
+                                    </c:if>
+
+                                    <c:if test="${project.id != null}">
+                                        <button type="button" id="${project.id}" class="btn btn-primary btn-update">Alterar</button>
+                                    </c:if>
                                     <a href="${pageContext.request.contextPath}/" class="btn btn-secondary mx-1">Voltar</a>
                                 </div>
                             </form>

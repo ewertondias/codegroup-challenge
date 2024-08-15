@@ -3,6 +3,9 @@ package com.codegroup.challenge.project.adapter.in.api.assembler;
 import com.codegroup.challenge.project.adapter.in.api.dto.ProjectResponse;
 import com.codegroup.challenge.project.domain.Project;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class ProjectAssembler {
 
     private ProjectAssembler() {}
@@ -12,14 +15,19 @@ public class ProjectAssembler {
             .id(project.getId())
             .name(project.getName())
             .manager(project.getManager())
-            .startDate(project.getStartDate())
-            .estimatedEndDate(project.getEstimatedEndDate())
-            .actualEndDate(project.getActualEndDate())
+            .startDate(formatDate(project.getStartDate()))
+            .estimatedEndDate(formatDate(project.getEstimatedEndDate()))
+            .actualEndDate(formatDate(project.getActualEndDate()))
             .budget(project.getBudget())
             .description(project.getDescription())
             .risk(project.getRisk())
             .status(project.getStatus())
             .build();
+    }
+
+    private static String formatDate(LocalDate date) {
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("d/M/y");
+        return date.format(dateTimeFormatter);
     }
 
 }
