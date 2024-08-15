@@ -41,42 +41,46 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <div class="row">
-                                <div class="col-6">
-                                    <div class="row">
-                                        <div class="col-auto">
-                                            <span>Projetos</span>
+                            <form action="${pageContext.request.contextPath}/" method="get">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="row">
+                                            <div class="col-auto">
+                                                <span>Projetos</span>
+                                            </div>
+                                            <div class="col-auto">
+                                                <div class="input-group">
+                                                    <label for="search" class="d-none">Pesquisar</label>
+                                                    <input type="search" id="search" name="search" class="form-control" value="${filter.search}" />
+                                                    <button type="submit" class="btn btn-outline-secondary">Pesquisar</button>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div class="col-auto">
-                                            <div class="input-group">
-                                                <input type="search" class="form-control"/>
-                                                <button type="button" class="btn btn-outline-secondary">Pesquisar</button>
+                                    </div>
+                                    <div class="col-6 pe-2">
+                                        <div class="d-flex justify-content-end">
+                                            <div class="d-flex">
+                                                <a href="${pageContext.request.contextPath}/projects/create" class="btn btn-secondary mx-1">Novo</a>
+                                            </div>
+                                            <div class="d-flex">
+                                                <select class="form-select mx-1" name="risk" aria-label="Risco">
+                                                    <option value="" selected>Risco</option>
+                                                    <c:forEach var="risk" items="${risks}">
+                                                        <option value="${risk}" ${filter.risk == risk ? 'selected' : ''}>${risk}</option>
+                                                    </c:forEach>
+                                                </select>
+                                                <select class="form-select mx-1" name="status" aria-label="Status">
+                                                    <option value="" selected>Status</option>
+                                                    <c:forEach var="s" items="${status}">
+                                                        <option value="${s}" ${filter.status == s ? 'selected' : ''}>${s}</option>
+                                                    </c:forEach>
+                                                </select>
+                                                <button type="submit" class="btn btn-secondary mx-1">Filtrar</button>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-6 pe-2">
-                                    <div class="d-flex justify-content-end">
-                                        <div class="d-flex">
-                                            <a href="${pageContext.request.contextPath}/projects/create" class="btn btn-secondary mx-1">Novo</a>
-                                        </div>
-                                        <div class="d-flex">
-                                            <select class="form-select mx-1" aria-label="Risco">
-                                                <option selected>Risco</option>
-                                                <option value="1">Baixo</option>
-                                                <option value="2">Médio</option>
-                                                <option value="3">Alto</option>
-                                            </select>
-                                            <select class="form-select mx-1" aria-label="Status">
-                                                <option selected>Status</option>
-                                                <option value="1">Em análise</option>
-                                                <option value="2">Iniciado</option>
-                                                <option value="3">Encerrado</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            </form>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -123,17 +127,17 @@
                                 <nav aria-label="Paginacao">
                                     <ul class="pagination">
                                         <li class="page-item ${!hasPrevious ? 'disabled' : ''}">
-                                            <a href="${pageContext.request.contextPath}/?page=${pageNumber - 1}" class="page-link">&laquo;</a>
+                                            <a href="${pageContext.request.contextPath}/?page=${pageNumber - 1}&search=${filter.search}&risk=${filter.risk}&status=${filter.status}" class="page-link">&laquo;</a>
                                         <li>
 
                                         <c:forEach var="i" begin="1" end="${(projects.totalPages + 1) - 1}">
                                             <li class="page-item ${pageNumber == i ? 'active' : ''}">
-                                                <a href="${pageContext.request.contextPath}/?page=${i}" class="page-link">${i}</a>
+                                                <a href="${pageContext.request.contextPath}/?page=${i}&search=${filter.search}&risk=${filter.risk}&status=${filter.status}" class="page-link">${i}</a>
                                             <li>
                                         </c:forEach>
 
                                         <li class="page-item ${!hasNext ? 'disabled' : ''}">
-                                            <a href="${pageContext.request.contextPath}/?page=${pageNumber + 1}" class="page-link">&raquo;</a>
+                                            <a href="${pageContext.request.contextPath}/?page=${pageNumber + 1}&search=${filter.search}&risk=${filter.risk}&status=${filter.status}" class="page-link">&raquo;</a>
                                         </li>
                                     </ul>
                                 </nav>
