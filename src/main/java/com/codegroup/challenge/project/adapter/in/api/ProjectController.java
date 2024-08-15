@@ -1,7 +1,9 @@
 package com.codegroup.challenge.project.adapter.in.api;
 
+import com.codegroup.challenge.project.CreateProjectUseCase;
 import com.codegroup.challenge.project.adapter.in.api.dto.ProjectRequest;
-import com.codegroup.challenge.project.domain.CreateProjectUseCase;
+import com.codegroup.challenge.project.domain.enums.RiskEnum;
+import com.codegroup.challenge.project.domain.enums.StatusEnum;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,13 +24,15 @@ public class ProjectController {
     @GetMapping("/create")
     public String createView(Model model) {
         model.addAttribute("project", new ProjectRequest());
+        model.addAttribute("risks", RiskEnum.values());
+        model.addAttribute("status", StatusEnum.values());
 
         return "project/create";
     }
 
     @PostMapping("/create")
     public String create(@ModelAttribute ProjectRequest request) {
-        var projectCreated = createProject.handle();
+        createProject.handle(request);
 
         return "redirect:/";
     }

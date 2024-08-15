@@ -3,3 +3,9 @@ spring:
     view:
       prefix: /WEB-INF/jsp/
       suffix: .jsp
+
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:challenge}
+    username: ${DB_USER:postgres}
+    password: ${DB_USER:postgres}

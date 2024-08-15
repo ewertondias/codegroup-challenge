@@ -67,42 +67,36 @@
                                     <thead>
                                         <tr>
                                             <th>Nome</th>
-                                            <th>Data de início</th>
                                             <th>Gerente</th>
+                                            <th>Data de início</th>
                                             <th>Previsão de término</th>
+                                            <th>Orçamento</th>
+                                            <th>Descrição</th>
+                                            <th>Risco</th>
                                             <th>Status</th>
                                             <th></th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>
-                                                <a href="#">Code Group</a>
-                                            </td>
-                                            <td>14/08/2024</td>
-                                            <td>Ewerton Dias</td>
-                                            <td>20/08/2024</td>
-                                            <td>Iniciado</td>
-                                            <td>
-                                                <a href="${pageContext.request.contextPath}/projects/member">ME</a>
-                                                <a href="#">B</a>
-                                                <a href="#">C</a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <a href="#">Code Group</a>
-                                            </td>
-                                            <td>14/08/2024</td>
-                                            <td>Ewerton Dias</td>
-                                            <td>20/08/2024</td>
-                                            <td>Iniciado</td>
-                                            <td>
-                                                <a href="${pageContext.request.contextPath}/projects/member">ME</a>
-                                                <a href="#">B</a>
-                                                <a href="#">C</a>
-                                            </td>
-                                        </tr>
+                                        <c:forEach var="project" items="${projects}">
+                                            <tr>
+                                                <td>
+                                                    <a href="#">${project.name}</a>
+                                                </td>
+                                                <td>${project.manager}</td>
+                                                <td>${project.startDate}</td>
+                                                <td>${project.estimatedEndDate}</td>
+                                                <td>${project.budget}</td>
+                                                <td>${project.description}</td>
+                                                <td>${project.risk}</td>
+                                                <td>${project.status}</td>
+                                                <td>
+                                                    <a href="${pageContext.request.contextPath}/projects/member">ME</a>
+                                                    <a href="#">B</a>
+                                                    <a href="#">C</a>
+                                                </td>
+                                            </tr>
+                                        </c:forEach>
                                     </tbody>
                                 </table>
                             </div>
