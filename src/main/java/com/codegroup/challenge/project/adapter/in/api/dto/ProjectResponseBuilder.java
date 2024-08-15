@@ -1,9 +1,12 @@
 package com.codegroup.challenge.project.adapter.in.api.dto;
 
+import com.codegroup.challenge.member.adapter.in.api.dto.MemberResponse;
 import com.codegroup.challenge.project.domain.enums.RiskEnum;
 import com.codegroup.challenge.project.domain.enums.StatusEnum;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 public class ProjectResponseBuilder {
@@ -18,6 +21,7 @@ public class ProjectResponseBuilder {
     protected String description;
     protected RiskEnum risk;
     protected StatusEnum status;
+    protected List<MemberResponse> members = new ArrayList<>();
 
     public ProjectResponseBuilder id(UUID id) {
         this.id = id;
@@ -66,6 +70,11 @@ public class ProjectResponseBuilder {
 
     public ProjectResponseBuilder status(StatusEnum status) {
         this.status = status;
+        return this;
+    }
+
+    public ProjectResponseBuilder members(List<MemberResponse> members) {
+        this.members = members;
         return this;
     }
 

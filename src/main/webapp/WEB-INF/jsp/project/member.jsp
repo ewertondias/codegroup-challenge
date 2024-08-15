@@ -25,15 +25,34 @@
 
         <script type="text/javascript">
             $(document).ready(function() {
-                $('.select-member').select2({
-                    data: [{
-                        "id": 0,
-                        "text": "Ewerton Dias"
-                    },
-                    {
-                        "id": 1,
-                        "text": "Luis Augusto"
-                    }]
+                $.ajax({
+                    url: '/members/employees',
+                    method: 'get',
+                    success: function(response) {
+                        let members = response.map(function(member) {
+                            return {
+                                id: member.id,
+                                text: member.name
+                            }
+                        });
+
+                        $('.select-member').select2({
+                            data: members
+                        });
+                    }
+                });
+
+                $('.btn-add-member').click(function() {
+                    let projectId = $(this).attr('id');
+                    let memberId = $('.select-member').val();
+
+                    $.ajax({
+                        url: '/projects/' + projectId + '/member/' + memberId,
+                        method: 'put',
+                        success: function() {
+                            location.reload();
+                        }
+                    });
                 });
             });
         </script>
@@ -82,7 +101,7 @@
                                         <select id="member" class="form-select select-member"></select>
                                     </div>
                                     <div class="col-1">
-                                        <button type="submit" class="btn btn-primary btn-sm">Adicionar</button>
+                                        <button type="submit" id="${project.id}" class="btn btn-primary btn-sm btn-add-member">Adicionar</button>
                                     </div>
                                 </div>
                             </div>
@@ -94,10 +113,9 @@
                         </div>
                         <div class="table-responsive">
                             <ul class="list-group">
-                                <li class="list-group-item list-group-item-action">Ewerton Dias</li>
-                                <li class="list-group-item list-group-item-action">Ewerton Dias</li>
-                                <li class="list-group-item list-group-item-action">Ewerton Dias</li>
-                                <li class="list-group-item list-group-item-action">Ewerton Dias</li>
+                                <c:forEach var="member" items="${project.members}">
+                                    <li class="list-group-item list-group-item-action">${member.name}</li>
+                                </c:forEach>
                             </ul>
                         </div>
                     </div>

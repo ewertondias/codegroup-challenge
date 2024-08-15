@@ -1,5 +1,7 @@
 package com.codegroup.challenge.project.adapter.in.api;
 
+import com.codegroup.challenge.member.GetByIdMemberUseCase;
+import com.codegroup.challenge.project.AddMemberProjectUseCase;
 import com.codegroup.challenge.project.CreateProjectUseCase;
 import com.codegroup.challenge.project.DeleteProjectUseCase;
 import com.codegroup.challenge.project.GetByIdProjectUseCase;
@@ -29,13 +31,18 @@ public class ProjectController {
     private final GetByIdProjectUseCase getByIdProject;
     private final UpdateProjectUseCase updateProject;
     private final DeleteProjectUseCase deleteProject;
+    private final GetByIdMemberUseCase getByIdMember;
+    private final AddMemberProjectUseCase addMemberProject;
 
     public ProjectController(CreateProjectUseCase createProject, GetByIdProjectUseCase getByIdProject,
-                             UpdateProjectUseCase updateProject, DeleteProjectUseCase deleteProject) {
+                             UpdateProjectUseCase updateProject, DeleteProjectUseCase deleteProject,
+                             GetByIdMemberUseCase getByIdMember, AddMemberProjectUseCase addMemberProject) {
         this.createProject = createProject;
         this.getByIdProject = getByIdProject;
         this.updateProject = updateProject;
         this.deleteProject = deleteProject;
+        this.getByIdMember = getByIdMember;
+        this.addMemberProject = addMemberProject;
     }
 
     @GetMapping("/create")
@@ -81,9 +88,21 @@ public class ProjectController {
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("/member")
-    public String member() {
+    @GetMapping("/{id}/member")
+    public String memberView(@PathVariable UUID id, Model model) {
+        var project = getByIdProject.handle(id);
+
+        model.addAttribute("project", project);
+
         return "project/member";
+    }
+
+    @PutMapping("/{id}/member/{idMember}")
+    public ResponseEntity<ProjectResponse> addMember(@PathVariable UUID id, @PathVariable UUID idMember) {
+        var member = getByIdMember.handle(idMember);
+
+        var project = addMemberProject.handle(id, member);
+        return ResponseEntity.ok().body(project);
     }
 
 }

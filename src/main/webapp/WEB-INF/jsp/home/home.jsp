@@ -108,7 +108,7 @@
                                                 <td>${project.risk}</td>
                                                 <td>${project.status}</td>
                                                 <td>
-                                                    <a href="${pageContext.request.contextPath}/projects/member">Add</a>
+                                                    <a href="${pageContext.request.contextPath}/projects/${project.id}/member">Add</a>
                                                     <a href="${pageContext.request.contextPath}/projects/${project.id}">Alterar</a>
                                                     <a href="#" id="${project.id}" class="btn-delete">Excluir</a>
                                                 </td>

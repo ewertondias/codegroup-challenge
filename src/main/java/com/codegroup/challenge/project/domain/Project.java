@@ -1,14 +1,20 @@
 package com.codegroup.challenge.project.domain;
 
+import com.codegroup.challenge.member.domain.Member;
 import com.codegroup.challenge.project.domain.enums.RiskEnum;
 import com.codegroup.challenge.project.domain.enums.StatusEnum;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -27,6 +33,14 @@ public class Project {
     private String description;
     private RiskEnum risk;
     private StatusEnum status;
+
+    @ManyToMany
+    @JoinTable(
+        name = "project_member",
+        joinColumns = @JoinColumn(name = "project_id"),
+        inverseJoinColumns = @JoinColumn(name = "member_id")
+    )
+    private final List<Member> members = new ArrayList<>();
 
     public Project() {}
 
@@ -98,6 +112,14 @@ public class Project {
 
     public StatusEnum getStatus() {
         return status;
+    }
+
+    public List<Member> getMembers() {
+        return members;
+    }
+
+    public void addMember(Member member) {
+        this.members.add(member);
     }
 
 }
