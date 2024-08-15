@@ -98,7 +98,7 @@
                                         <c:forEach var="project" items="${projects}">
                                             <tr>
                                                 <td>
-                                                    <a href="#">${project.name}</a>
+                                                    <a href="${pageContext.request.contextPath}/projects/${project.id}/detail">${project.name}</a>
                                                 </td>
                                                 <td>${project.manager}</td>
                                                 <td>${project.startDate}</td>

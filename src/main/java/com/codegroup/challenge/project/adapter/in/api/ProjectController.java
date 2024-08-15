@@ -105,4 +105,13 @@ public class ProjectController {
         return ResponseEntity.ok().body(project);
     }
 
+    @GetMapping("/{id}/detail")
+    public String detailView(@PathVariable UUID id, Model model) {
+        var project = getByIdProject.handle(id);
+
+        model.addAttribute("project", project);
+
+        return "project/detail";
+    }
+
 }

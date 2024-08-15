@@ -22,40 +22,6 @@
         <script src="<c:url value="/static/dist/js/bootstrap.bundle.min.js" />" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
         <script src="<c:url value="https://cdn.jsdelivr.net/npm/flatpickr" />"></script>
         <script src="<c:url value="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js" />"></script>
-
-        <script type="text/javascript">
-            $(document).ready(function() {
-                $.ajax({
-                    url: '/members/employees',
-                    method: 'get',
-                    success: function(response) {
-                        let members = response.map(function(member) {
-                            return {
-                                id: member.id,
-                                text: member.name
-                            }
-                        });
-
-                        $('.select-member').select2({
-                            data: members
-                        });
-                    }
-                });
-
-                $('.btn-add-member').click(function() {
-                    let projectId = $(this).attr('id');
-                    let memberId = $('.select-member').val();
-
-                    $.ajax({
-                        url: '/projects/' + projectId + '/member/' + memberId,
-                        method: 'put',
-                        success: function() {
-                            location.reload();
-                        }
-                    });
-                });
-            });
-        </script>
     </head>
 
     <body>
@@ -68,7 +34,7 @@
                                 <div class="col-6">
                                     <div class="row">
                                         <div class="col-12">
-                                            <span>Adicionar Membro</span>
+                                            <span>Detalhe do projeto</span>
                                         </div>
                                     </div>
                                 </div>
@@ -84,27 +50,51 @@
                         <div class="card-body">
                             <form class="row g-3">
                                 <div class="col-md-12">
-                                    <h6>${project.name}</h6>
-                                    <p>
-                                        ${project.description}
-                                    </p>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <h6>${project.name}</h6>
+                                            <p>${project.description}</p>
+                                        </div>
+
+                                        <div class="d-flex">
+                                            <div class="col-3">
+                                                <h6>Gerente Responsável</h6>
+                                                <p>${project.manager}</p>
+                                            </div>
+
+                                            <div class="col-3">
+                                                <h6>Orçamento Total</h6>
+                                                <p>${project.budget}</p>
+                                            </div>
+
+                                            <div class="col-3">
+                                                <h6>Classificação de Risco</h6>
+                                                <p>${project.risk}</p>
+                                            </div>
+
+                                            <div class="col-3">
+                                                <h6>Status</h6>
+                                                <p>${project.status}</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="d-flex">
+                                            <div class="col-3">
+                                                <h6>Data de Início</h6>
+                                                <p>${project.startDate}</p>
+                                            </div>
+                                            <div class="col-3">
+                                                <h6>Previsão de Término</h6>
+                                                <p>${project.estimatedEndDate}</p>
+                                            </div>
+                                            <div class="col-3">
+                                                <h6>Data Real de Término</h6>
+                                                <p>${project.actualEndDate}</p>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </form>
-                        </div>
-                    </div>
-                    <div class="card my-2">
-                        <div class="card-body">
-                            <div class="col-12">
-                                <div class="row">
-                                    <div class="col-11">
-                                        <label for="member" class="d-none">Membros</label>
-                                        <select id="member" class="form-select select-member"></select>
-                                    </div>
-                                    <div class="col-1">
-                                        <button type="submit" id="${project.id}" class="btn btn-primary btn-sm btn-add-member">Adicionar</button>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     </div>
                     <div class="card">
