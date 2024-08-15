@@ -95,7 +95,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <c:forEach var="project" items="${projects}">
+                                        <c:forEach var="project" items="${projects.content}">
                                             <tr>
                                                 <td>
                                                     <a href="${pageContext.request.contextPath}/projects/${project.id}/detail">${project.name}</a>
@@ -122,20 +122,18 @@
                             <div class="d-flex justify-content-center">
                                 <nav aria-label="Paginacao">
                                     <ul class="pagination">
-                                        <li class="page-item">
-                                            <a href="#" class="page-link">Anterior</a>
+                                        <li class="page-item ${!hasPrevious ? 'disabled' : ''}">
+                                            <a href="${pageContext.request.contextPath}/?page=${pageNumber - 1}" class="page-link">&laquo;</a>
                                         <li>
-                                        <li class="page-item">
-                                            <a href="#" class="page-link">1</a>
-                                        <li>
-                                        <li class="page-item">
-                                            <a href="#" class="page-link">2</a>
-                                        <li>
-                                        <li class="page-item">
-                                            <a href="#" class="page-link">3</a>
-                                        <li>
-                                        <li class="page-item">
-                                            <a href="#" class="page-link">Próximo</a>
+
+                                        <c:forEach var="i" begin="1" end="${(projects.totalPages + 1) - 1}">
+                                            <li class="page-item ${pageNumber == i ? 'active' : ''}">
+                                                <a href="${pageContext.request.contextPath}/?page=${i}" class="page-link">${i}</a>
+                                            <li>
+                                        </c:forEach>
+
+                                        <li class="page-item ${!hasNext ? 'disabled' : ''}">
+                                            <a href="${pageContext.request.contextPath}/?page=${pageNumber + 1}" class="page-link">&raquo;</a>
                                         </li>
                                     </ul>
                                 </nav>

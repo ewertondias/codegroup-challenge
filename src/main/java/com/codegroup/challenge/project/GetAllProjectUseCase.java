@@ -1,11 +1,11 @@
 package com.codegroup.challenge.project;
 
 import com.codegroup.challenge.project.adapter.in.api.dto.ProjectResponse;
-
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 public interface GetAllProjectUseCase {
 
-    List<ProjectResponse> handle();
+    Page<ProjectResponse> handle(Pageable pageable);
 
 }

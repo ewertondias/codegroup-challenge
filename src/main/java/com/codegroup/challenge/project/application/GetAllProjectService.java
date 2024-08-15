@@ -5,9 +5,9 @@ import com.codegroup.challenge.project.adapter.in.api.assembler.ProjectAssembler
 import com.codegroup.challenge.project.adapter.in.api.dto.ProjectResponse;
 import com.codegroup.challenge.project.domain.Project;
 import com.codegroup.challenge.project.domain.ProjectRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class GetAllProjectService implements GetAllProjectUseCase {
@@ -19,12 +19,10 @@ public class GetAllProjectService implements GetAllProjectUseCase {
     }
 
     @Override
-    public List<ProjectResponse> handle() {
-        List<Project> projects = projectRepository.findAll();
+    public Page<ProjectResponse> handle(Pageable pageable) {
+        Page<Project> projects = projectRepository.findAll(pageable);
 
-        return projects.stream()
-            .map(ProjectAssembler::toProjectResponse)
-            .toList();
+        return projects.map(ProjectAssembler::toProjectResponse);
     }
 
 }
