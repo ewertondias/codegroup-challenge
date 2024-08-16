@@ -1,4 +1,26 @@
 body {
     font-family: "Open Sans", sans-serif;
+    font-size: 14px;
     padding: 20px 0;
+    background-color: #F1F6F9;
+}
+
+.btn {
+    font-size: 14px;
+    width: 80px;
+    height: 35px;
+    padding: 5px;
+}
+
+input, textarea {
+    font-size: 14px !important;
+}
+
+select {
+    height: 35px;
+    font-size: 14px !important;
+}
+
+a {
+    text-decoration: none;
 }

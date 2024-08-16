@@ -8,18 +8,25 @@
 
         <title>Code Group Challenge</title>
 
-        <link href="<c:url value="/static/dist/css/bootstrap.min.css" />" rel="stylesheet">
+        <link href="<c:url value="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />" rel="stylesheet">
         <link href="<c:url value="/static/dist/css/custom.css" />" rel="stylesheet">
+        <link href="<c:url value="/static/dist/css/home.css" />" rel="stylesheet">
 
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com" rel="preconnect">
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+        <link href="<c:url value="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />" rel="stylesheet">
 
         <script src="<c:url value="https://code.jquery.com/jquery-3.7.1.min.js" />" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-        <script src="<c:url value="/static/dist/js/bootstrap.bundle.min.js" />" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+        <script src="<c:url value="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" />" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
         <script type="text/javascript">
             $(document).ready(function() {
+                deleteProject();
+                numeral();
+            });
+
+            function deleteProject() {
                 $('.btn-delete').click(function() {
                     let id = $(this).attr('id');
 
@@ -31,7 +38,18 @@
                         }
                     });
                 });
-            });
+            }
+
+            function numeral() {
+                $(".budget").each(function() {
+                    let budget = $(this);
+                    let budgetValue = Number(budget.text());
+
+                    let currencyValue = budgetValue.toLocaleString('pt-br', { style: 'currency', currency: 'BRL'});
+
+                    budget.text(currencyValue);
+                });
+            }
         </script>
     </head>
 
@@ -46,13 +64,15 @@
                                     <div class="col-6">
                                         <div class="row">
                                             <div class="col-auto">
-                                                <span>Projetos</span>
+                                                <h6 class="title">Projetos</h6>
                                             </div>
                                             <div class="col-auto">
                                                 <div class="input-group">
                                                     <label for="search" class="d-none">Pesquisar</label>
-                                                    <input type="search" id="search" name="search" class="form-control" value="${filter.search}" />
-                                                    <button type="submit" class="btn btn-outline-secondary">Pesquisar</button>
+                                                    <input type="search" id="search" name="search" class="form-control" value="${filter.search}" placeholder="Pesquisar" />
+                                                    <button type="submit" class="btn btn-secondary btn-search">
+                                                        <i class="bi bi-search"></i>
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div>
@@ -75,14 +95,14 @@
                                                         <option value="${s}" ${filter.status == s ? 'selected' : ''}>${s}</option>
                                                     </c:forEach>
                                                 </select>
-                                                <button type="submit" class="btn btn-secondary mx-1">Filtrar</button>
+                                                <button type="submit" class="btn btn-secondary mx-1 btn-filter">Filtrar</button>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </form>
                         </div>
-                        <div class="card-body">
+                        <div class="card-body card-body-list-projects">
                             <div class="table-responsive">
                                 <table class="table table-hover">
                                     <thead>
@@ -107,14 +127,26 @@
                                                 <td>${project.manager}</td>
                                                 <td>${project.startDate}</td>
                                                 <td>${project.estimatedEndDate}</td>
-                                                <td>${project.budget}</td>
+                                                <td class="budget">${project.budget}</td>
                                                 <td>${project.description}</td>
-                                                <td>${project.risk}</td>
-                                                <td>${project.status}</td>
                                                 <td>
-                                                    <a href="${pageContext.request.contextPath}/projects/${project.id}/member">Add</a>
-                                                    <a href="${pageContext.request.contextPath}/projects/${project.id}">Alterar</a>
-                                                    <a href="#" id="${project.id}" class="btn-delete">Excluir</a>
+                                                    <span class="badge ${project.risk == 'BAIXO' ? 'text-bg-primary' : ''}
+                                                                       ${project.risk == 'MEDIO' ? 'text-bg-warning' : ''}
+                                                                       ${project.risk == 'ALTO' ? 'text-bg-danger' : ''}">
+                                                        ${project.risk}
+                                                    </span>
+                                                </td>
+                                                <td>${project.status}</td>
+                                                <td class="text-center">
+                                                    <a href="${pageContext.request.contextPath}/projects/${project.id}/member" class="text-decoration-none">
+                                                        <i class="bi bi-people-fill fs-6"></i>
+                                                    </a>
+                                                    <a href="${pageContext.request.contextPath}/projects/${project.id}" class="text-decoration-none mx-2">
+                                                        <i class="bi bi-pencil-square fs-6"></i>
+                                                    </a>
+                                                    <a href="#" id="${project.id}" class="btn-delete text-decoration-none">
+                                                        <i class="bi bi-trash3 text-danger fs-6"></i>
+                                                    </a>
                                                 </td>
                                             </tr>
                                         </c:forEach>

@@ -2,6 +2,8 @@ package com.codegroup.challenge.project.adapter.in.api.dto;
 
 import com.codegroup.challenge.project.domain.enums.RiskEnum;
 import com.codegroup.challenge.project.domain.enums.StatusEnum;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 import java.math.BigDecimal;
 import java.util.UUID;
@@ -9,14 +11,25 @@ import java.util.UUID;
 public class ProjectRequest {
 
     private UUID id;
+
+    @NotBlank(message = "Name cannot be null or empty")
     private String name;
+
+    @NotBlank(message = "Manager cannot be null or empty")
     private String manager;
+
     private String startDate;
     private String estimatedEndDate;
     private String actualEndDate;
     private BigDecimal budget;
+
+    @NotBlank(message = "Description cannot be null or empty")
     private String description;
+
+    @NotNull(message = "Risk cannot be null")
     private RiskEnum risk;
+
+    @NotNull(message = "Status cannot be null")
     private StatusEnum status;
 
     public ProjectRequest() {}

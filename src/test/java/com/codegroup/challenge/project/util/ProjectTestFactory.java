@@ -1,7 +1,6 @@
 package com.codegroup.challenge.project.util;
 
 import com.codegroup.challenge.project.adapter.in.api.dto.ProjectRequest;
-import com.codegroup.challenge.project.adapter.in.api.dto.ProjectResponse;
 import com.codegroup.challenge.project.domain.Project;
 import com.codegroup.challenge.project.domain.ProjectBuilder;
 import com.codegroup.challenge.project.domain.enums.RiskEnum;
@@ -48,21 +47,6 @@ public class ProjectTestFactory {
 
     public static ProjectRequest projectRequest() {
         return ProjectRequest.builder()
-            .name(PROJECT_TEST)
-            .manager(TEST_MANAGER)
-            .startDate(START_DATE)
-            .estimatedEndDate(ESTIMATED_END_DATE)
-            .actualEndDate(ACTUAL_END_DATE)
-            .budget(BUDGET)
-            .description(TESTE_PROJECT)
-            .risk(RiskEnum.ALTO)
-            .status(StatusEnum.EM_ANDAMENTO)
-            .build();
-    }
-
-    public static ProjectResponse projectResponse() {
-        return ProjectResponse.builder()
-            .id(PROJECT_ID)
             .name(PROJECT_TEST)
             .manager(TEST_MANAGER)
             .startDate(START_DATE)

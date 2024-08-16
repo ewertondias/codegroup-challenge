@@ -6,9 +6,9 @@ import com.codegroup.challenge.member.domain.Member;
 import com.codegroup.challenge.project.adapter.in.api.dto.ProjectResponse;
 import com.codegroup.challenge.project.domain.Project;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
+
+import static com.codegroup.challenge.util.DateTimeUtils.toLocalDate;
 
 public class ProjectAssembler {
 
@@ -19,20 +19,15 @@ public class ProjectAssembler {
             .id(project.getId())
             .name(project.getName())
             .manager(project.getManager())
-            .startDate(formatDate(project.getStartDate()))
-            .estimatedEndDate(formatDate(project.getEstimatedEndDate()))
-            .actualEndDate(formatDate(project.getActualEndDate()))
+            .startDate(toLocalDate(project.getStartDate()))
+            .estimatedEndDate(toLocalDate(project.getEstimatedEndDate()))
+            .actualEndDate(toLocalDate(project.getActualEndDate()))
             .budget(project.getBudget())
             .description(project.getDescription())
             .risk(project.getRisk())
             .status(project.getStatus())
             .members(buildMemberResponse(project.getMembers()))
             .build();
-    }
-
-    private static String formatDate(LocalDate date) {
-        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("d/M/y");
-        return date.format(dateTimeFormatter);
     }
 
     private static List<MemberResponse> buildMemberResponse(List<Member> members) {

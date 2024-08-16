@@ -10,9 +10,11 @@ import com.codegroup.challenge.project.adapter.in.api.dto.ProjectRequest;
 import com.codegroup.challenge.project.adapter.in.api.dto.ProjectResponse;
 import com.codegroup.challenge.project.domain.enums.RiskEnum;
 import com.codegroup.challenge.project.domain.enums.StatusEnum;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -21,11 +23,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 @Controller
 @RequestMapping("/projects")
 public class ProjectController {
+
+    private static final String PROJECT_VIEW = "project";
+    private static final String PROJECT_CREATE_VIEW = "project/create";
 
     private final CreateProjectUseCase createProject;
     private final GetByIdProjectUseCase getByIdProject;
@@ -47,15 +54,30 @@ public class ProjectController {
 
     @GetMapping("/create")
     public String createView(Model model) {
-        model.addAttribute("project", new ProjectRequest());
-        model.addAttribute("risks", RiskEnum.values());
-        model.addAttribute("status", StatusEnum.values());
+        model.addAttribute(PROJECT_VIEW, new ProjectRequest());
 
-        return "project/create";
+        this.loadModel(model);
+
+        return PROJECT_CREATE_VIEW;
     }
 
     @PostMapping("/create")
-    public String create(@ModelAttribute ProjectRequest request) {
+    public String create(@ModelAttribute @Valid ProjectRequest request, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            Map<String, String> errors = new HashMap<>();
+
+            bindingResult.getFieldErrors().forEach(
+                error -> errors.put(error.getField(), error.getDefaultMessage())
+            );
+
+            model.addAttribute(PROJECT_VIEW, request);
+            model.addAttribute("errors", errors);
+
+            this.loadModel(model);
+
+            return PROJECT_CREATE_VIEW;
+        }
+
         createProject.handle(request);
 
         return "redirect:/";
@@ -63,20 +85,20 @@ public class ProjectController {
 
     @GetMapping("/{id}")
     public String updateView(@PathVariable UUID id, Model model) {
-        model.addAttribute("risks", RiskEnum.values());
-        model.addAttribute("status", StatusEnum.values());
+        this.loadModel(model);
 
         var project = getByIdProject.handle(id);
-        model.addAttribute("project", project);
 
-        return "project/create";
+        model.addAttribute(PROJECT_VIEW, project);
+
+        return PROJECT_CREATE_VIEW;
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ProjectResponse> update(@PathVariable UUID id, @ModelAttribute ProjectRequest request, Model model) {
+    public ResponseEntity<ProjectResponse> update(@PathVariable UUID id, @ModelAttribute @Valid ProjectRequest request, Model model) {
         var projectUpdate = updateProject.handle(id, request);
 
-        model.addAttribute("project", projectUpdate);
+        model.addAttribute(PROJECT_VIEW, projectUpdate);
 
         return ResponseEntity.ok(projectUpdate);
     }
@@ -92,7 +114,7 @@ public class ProjectController {
     public String memberView(@PathVariable UUID id, Model model) {
         var project = getByIdProject.handle(id);
 
-        model.addAttribute("project", project);
+        model.addAttribute(PROJECT_VIEW, project);
 
         return "project/member";
     }
@@ -109,9 +131,14 @@ public class ProjectController {
     public String detailView(@PathVariable UUID id, Model model) {
         var project = getByIdProject.handle(id);
 
-        model.addAttribute("project", project);
+        model.addAttribute(PROJECT_VIEW, project);
 
         return "project/detail";
+    }
+
+    private void loadModel(Model model) {
+        model.addAttribute("risks", RiskEnum.values());
+        model.addAttribute("status", StatusEnum.values());
     }
 
 }
