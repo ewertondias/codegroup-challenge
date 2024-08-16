@@ -144,9 +144,12 @@
                                                     <a href="${pageContext.request.contextPath}/projects/${project.id}" class="text-decoration-none mx-2">
                                                         <i class="bi bi-pencil-square fs-6"></i>
                                                     </a>
-                                                    <a href="#" id="${project.id}" class="btn-delete text-decoration-none">
-                                                        <i class="bi bi-trash3 text-danger fs-6"></i>
-                                                    </a>
+
+                                                    <c:if test="${project.status != 'INICIADO' && project.status != 'EM_ANDAMENTO' && project.status != 'ENCERRADO'}">
+                                                        <a href="#" id="${project.id}" class="btn-delete text-decoration-none">
+                                                            <i class="bi bi-trash3 text-danger fs-6"></i>
+                                                        </a>
+                                                    </c:if>
                                                 </td>
                                             </tr>
                                         </c:forEach>
