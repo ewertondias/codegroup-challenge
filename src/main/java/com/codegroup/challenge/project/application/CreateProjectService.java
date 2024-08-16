@@ -1,7 +1,9 @@
 package com.codegroup.challenge.project.application;
 
 import com.codegroup.challenge.project.CreateProjectUseCase;
+import com.codegroup.challenge.project.adapter.in.api.assembler.ProjectAssembler;
 import com.codegroup.challenge.project.adapter.in.api.dto.ProjectRequest;
+import com.codegroup.challenge.project.adapter.in.api.dto.ProjectResponse;
 import com.codegroup.challenge.project.domain.Project;
 import com.codegroup.challenge.project.domain.ProjectRepository;
 import org.springframework.stereotype.Service;
@@ -20,7 +22,7 @@ public class CreateProjectService implements CreateProjectUseCase {
     }
 
     @Override
-    public UUID handle(ProjectRequest request) {
+    public ProjectResponse handle(ProjectRequest request) {
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         var startDate = LocalDate.parse(request.getStartDate(), dateTimeFormatter);
         var estimatedEndDate = LocalDate.parse(request.getEstimatedEndDate(), dateTimeFormatter);
@@ -41,7 +43,7 @@ public class CreateProjectService implements CreateProjectUseCase {
 
         var newProject = repository.save(project);
 
-        return newProject.getId();
+        return ProjectAssembler.toProjectResponse(newProject);
     }
 
 }

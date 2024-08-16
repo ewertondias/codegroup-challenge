@@ -1,11 +1,10 @@
 package com.codegroup.challenge.project;
 
 import com.codegroup.challenge.project.adapter.in.api.dto.ProjectRequest;
-
-import java.util.UUID;
+import com.codegroup.challenge.project.adapter.in.api.dto.ProjectResponse;
 
 public interface CreateProjectUseCase {
 
-    UUID handle(ProjectRequest request);
+    ProjectResponse handle(ProjectRequest request);
 
 }

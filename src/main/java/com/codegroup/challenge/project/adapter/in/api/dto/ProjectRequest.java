@@ -19,6 +19,25 @@ public class ProjectRequest {
     private RiskEnum risk;
     private StatusEnum status;
 
+    public ProjectRequest() {}
+
+    public ProjectRequest(ProjectRequestBuilder builder) {
+        this.id = builder.id;
+        this.name = builder.name;
+        this.manager = builder.manager;
+        this.startDate = builder.startDate;
+        this.estimatedEndDate = builder.estimatedEndDate;
+        this.actualEndDate = builder.actualEndDate;
+        this.budget = builder.budget;
+        this.description = builder.description;
+        this.risk = builder.risk;
+        this.status = builder.status;
+    }
+
+    public static ProjectRequestBuilder builder() {
+        return new ProjectRequestBuilder();
+    }
+
     public UUID getId() {
         return id;
     }

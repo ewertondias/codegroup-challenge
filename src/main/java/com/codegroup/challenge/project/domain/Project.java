@@ -46,6 +46,7 @@ public class Project {
     public Project() {}
 
     protected Project(ProjectBuilder builder) {
+        this.id = builder.id;
         this.name = builder.name;
         this.manager = builder.manager;
         this.startDate = builder.startDate;
