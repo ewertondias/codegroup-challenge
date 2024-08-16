@@ -1,5 +1,7 @@
 package com.codegroup.challenge.project.application;
 
+import com.codegroup.challenge.member.domain.enums.MemberPositionEnum;
+import com.codegroup.challenge.member.domain.exception.MemberNotAllowedException;
 import com.codegroup.challenge.member.util.MemberTestFactory;
 import com.codegroup.challenge.project.domain.Project;
 import com.codegroup.challenge.project.exception.ProjectNotFoundException;
@@ -34,6 +36,18 @@ class AddMemberProjectServiceTest extends CreateServicesIT {
 
         assertNotNull(projectResponse);
         assertFalse(projectResponse.getMembers().isEmpty());
+    }
+
+    @Test
+    @DisplayName("Must throw an exception MemberNotAllowedException when the member position is not an employee")
+    void mustThrowMemberNotAllowedException() {
+        var project = ProjectTestFactory.project();
+        var projectId = project.getId();
+        var member = MemberTestFactory.memberWithPosition(MemberPositionEnum.CONSULTOR);
+
+        when(projectRepository.findById(any())).thenReturn(Optional.of(project));
+
+        assertThrows(MemberNotAllowedException.class, () -> addMemberProject.handle(projectId, member));
     }
 
     @Test

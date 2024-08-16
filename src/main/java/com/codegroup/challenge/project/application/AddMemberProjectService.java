@@ -4,7 +4,6 @@ import com.codegroup.challenge.member.domain.Member;
 import com.codegroup.challenge.project.AddMemberProjectUseCase;
 import com.codegroup.challenge.project.adapter.in.api.assembler.ProjectAssembler;
 import com.codegroup.challenge.project.adapter.in.api.dto.ProjectResponse;
-import com.codegroup.challenge.project.domain.Project;
 import com.codegroup.challenge.project.domain.ProjectRepository;
 import com.codegroup.challenge.project.exception.ProjectNotFoundException;
 import org.springframework.stereotype.Service;
@@ -24,6 +23,8 @@ public class AddMemberProjectService implements AddMemberProjectUseCase {
     public ProjectResponse handle(UUID id, Member member) {
         var project = repository.findById(id)
             .orElseThrow(ProjectNotFoundException::new);
+
+        member.verifyPositionToAddProject();
 
         var memberAlreadyExists = project.getMembers().stream()
             .anyMatch(projectMember -> projectMember.getId().equals(member.getId()));

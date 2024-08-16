@@ -1,5 +1,6 @@
 package com.codegroup.challenge.util;
 
+import com.codegroup.challenge.member.domain.MemberRepository;
 import com.codegroup.challenge.project.AddMemberProjectUseCase;
 import com.codegroup.challenge.project.CreateProjectUseCase;
 import com.codegroup.challenge.project.DeleteProjectUseCase;
@@ -7,6 +8,7 @@ import com.codegroup.challenge.project.GetAllProjectUseCase;
 import com.codegroup.challenge.project.GetByIdProjectUseCase;
 import com.codegroup.challenge.project.UpdateProjectUseCase;
 import com.codegroup.challenge.project.domain.ProjectRepository;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -16,6 +18,12 @@ public class CreateServicesIT {
 
     @MockBean
     public ProjectRepository projectRepository;
+
+    @MockBean
+    public MemberRepository memberRepository;
+
+    @Autowired
+    public ObjectMapper objectMapper;
 
     @Autowired
     public CreateProjectUseCase createProject;

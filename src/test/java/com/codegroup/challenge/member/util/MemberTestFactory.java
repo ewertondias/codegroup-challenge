@@ -1,26 +1,33 @@
 package com.codegroup.challenge.member.util;
 
+import com.codegroup.challenge.member.adapter.in.api.dto.MemberRequest;
 import com.codegroup.challenge.member.domain.Member;
+import com.codegroup.challenge.member.domain.MemberBuilder;
 import com.codegroup.challenge.member.domain.enums.MemberPositionEnum;
-import com.codegroup.challenge.project.adapter.in.api.dto.ProjectRequest;
-import com.codegroup.challenge.project.adapter.in.api.dto.ProjectResponse;
-import com.codegroup.challenge.project.domain.Project;
-import com.codegroup.challenge.project.domain.ProjectBuilder;
-import com.codegroup.challenge.project.domain.enums.RiskEnum;
-import com.codegroup.challenge.project.domain.enums.StatusEnum;
 
-import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.util.UUID;
 
 public class MemberTestFactory {
 
-    public static Member member() {
+    public static MemberBuilder memberBuilder() {
         return Member.builder()
             .id(UUID.randomUUID())
             .name("Member")
-            .position(MemberPositionEnum.FUNCIONARIO)
+            .position(MemberPositionEnum.FUNCIONARIO);
+    }
+
+    public static Member member() {
+        return memberBuilder().build();
+    }
+
+    public static Member memberWithPosition(MemberPositionEnum position) {
+        return memberBuilder()
+            .position(position)
             .build();
+    }
+
+    public static MemberRequest memberRequest() {
+        return new MemberRequest("Member test", MemberPositionEnum.FUNCIONARIO);
     }
 
 }

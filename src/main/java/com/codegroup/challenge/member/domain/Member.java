@@ -1,6 +1,7 @@
 package com.codegroup.challenge.member.domain;
 
 import com.codegroup.challenge.member.domain.enums.MemberPositionEnum;
+import com.codegroup.challenge.member.domain.exception.MemberNotAllowedException;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -32,6 +33,12 @@ public class Member {
 
     public static MemberBuilder builder() {
         return new MemberBuilder();
+    }
+
+    public void verifyPositionToAddProject() {
+        if (!MemberPositionEnum.FUNCIONARIO.equals(this.getPosition())) {
+            throw new MemberNotAllowedException();
+        }
     }
 
     public UUID getId() {
