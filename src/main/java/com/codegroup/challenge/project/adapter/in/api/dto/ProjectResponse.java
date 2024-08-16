@@ -4,12 +4,17 @@ import com.codegroup.challenge.member.adapter.in.api.dto.MemberResponse;
 import com.codegroup.challenge.project.domain.enums.RiskEnum;
 import com.codegroup.challenge.project.domain.enums.StatusEnum;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class ProjectResponse {
+public class ProjectResponse implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = -8587976743074474343L;
 
     private final UUID id;
     private final String name;

@@ -33,8 +33,8 @@
                             <div class="row">
                                 <div class="col-6">
                                     <div class="row">
-                                        <div class="col-12">
-                                            <span>Detalhe do projeto</span>
+                                        <div class="col-auto">
+                                            <h6 class="title">Detalhe do projeto</h6>
                                         </div>
                                     </div>
                                 </div>
@@ -69,7 +69,11 @@
 
                                             <div class="col-3">
                                                 <h6>Classificação de Risco</h6>
-                                                <p>${project.risk}</p>
+                                                <p class="badge ${project.risk == 'BAIXO' ? 'text-bg-primary' : ''}
+                                                                ${project.risk == 'MEDIO' ? 'text-bg-warning' : ''}
+                                                                ${project.risk == 'ALTO' ? 'text-bg-danger' : ''}">
+                                                    ${project.risk}
+                                                </p>
                                             </div>
 
                                             <div class="col-3">

@@ -24,3 +24,7 @@ select {
 a {
     text-decoration: none;
 }
+
+.title {
+    margin-top: 10px;
+}

@@ -25,6 +25,11 @@
 
         <script type="text/javascript">
             $(document).ready(function() {
+                loadEMployeesMembers();
+                addMember();
+            });
+
+            function loadEMployeesMembers() {
                 $.ajax({
                     url: '/members/employees',
                     method: 'get',
@@ -41,7 +46,9 @@
                         });
                     }
                 });
+            }
 
+            function addMember() {
                 $('.btn-add-member').click(function() {
                     let projectId = $(this).attr('id');
                     let memberId = $('.select-member').val();
@@ -54,7 +61,7 @@
                         }
                     });
                 });
-            });
+            }
         </script>
     </head>
 
@@ -67,8 +74,8 @@
                             <div class="row">
                                 <div class="col-6">
                                     <div class="row">
-                                        <div class="col-12">
-                                            <span>Adicionar Membro</span>
+                                        <div class="col-auto">
+                                            <h6 class="title">Adicionar Membro</h6>
                                         </div>
                                     </div>
                                 </div>
@@ -109,7 +116,7 @@
                     </div>
                     <div class="card">
                         <div class="card-header">
-                            <h6>Membros</h6>
+                            <h6 class="title">Membros</h6>
                         </div>
                         <div class="table-responsive">
                             <ul class="list-group">

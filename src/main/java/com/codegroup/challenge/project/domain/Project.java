@@ -12,14 +12,20 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 @Entity
-public class Project {
+public class Project implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 8822478847305267685L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -130,6 +136,36 @@ public class Project {
 
     public void addMember(Member member) {
         this.members.add(member);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Project project = (Project) o;
+        return Objects.equals(id, project.id) && Objects.equals(name, project.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name);
+    }
+
+    @Override
+    public String toString() {
+        return "Project{" +
+            "id=" + id +
+            ", name='" + name + '\'' +
+            ", manager='" + manager + '\'' +
+            ", startDate=" + startDate +
+            ", estimatedEndDate=" + estimatedEndDate +
+            ", actualEndDate=" + actualEndDate +
+            ", budget=" + budget +
+            ", description='" + description + '\'' +
+            ", risk=" + risk +
+            ", status=" + status +
+            ", members=" + members +
+            '}';
     }
 
 }

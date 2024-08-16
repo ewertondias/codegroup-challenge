@@ -3,7 +3,13 @@ package com.codegroup.challenge.member.adapter.in.api.dto;
 import com.codegroup.challenge.member.domain.enums.MemberPositionEnum;
 import io.swagger.v3.oas.annotations.media.Schema;
 
-public class MemberRequest {
+import java.io.Serial;
+import java.io.Serializable;
+
+public class MemberRequest implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 4765109350309851854L;
 
     @Schema(description = "Member name", example = "Michael Scott")
     private String name;

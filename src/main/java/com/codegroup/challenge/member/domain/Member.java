@@ -9,10 +9,16 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
+import java.io.Serial;
+import java.io.Serializable;
+import java.util.Objects;
 import java.util.UUID;
 
 @Entity
-public class Member {
+public class Member implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = -4571545477218304259L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -51,6 +57,28 @@ public class Member {
 
     public MemberPositionEnum getPosition() {
         return position;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Member member = (Member) o;
+        return Objects.equals(id, member.id) && Objects.equals(name, member.name) && position == member.position;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, position);
+    }
+
+    @Override
+    public String toString() {
+        return "Member{" +
+            "id=" + id +
+            ", name='" + name + '\'' +
+            ", position=" + position +
+            '}';
     }
 
 }
